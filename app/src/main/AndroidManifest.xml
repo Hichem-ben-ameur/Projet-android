@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.rdef">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Session_visiteur"
+            android:label="@string/title_activity_session_visiteur"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".Detailsprojet"
+            android:label="@string/title_activity_detailsprojet"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
+        <activity
+            android:name=".Projets"
+            android:label="@string/title_activity_projets"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".Inscrit_visiteur">
+
+        </activity>
+        <activity
+            android:name=".Accueil"
+            android:label="@string/title_activity_accueil"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
+        <activity
+            android:name=".Session_dev"
+            android:label="@string/title_activity_session_dev"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
+        <activity android:name=".Inscrit_dev" />
+        <activity android:name=".Choix" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".ui.login.LoginActivity2"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".DetailDeveloppeurs"
+            android:label="Profil Developpeur"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="RDEF" />
+    </application>
+
+</manifest>
