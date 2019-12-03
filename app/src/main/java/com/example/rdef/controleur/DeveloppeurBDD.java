@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.rdef.Entity.NotificationProfil;
 import com.example.rdef.Entity.NotificationProjet;
 import com.example.rdef.Entity.Projet;
 import com.example.rdef.Entity.Visiteur;
@@ -91,6 +92,16 @@ import java.util.List;
      private static final int NUM_ID_Developpeur_notification = 2;
      private static final String COL_date_creation_notification = "date_creation";
      private static final int NUM_date_creation_notification = 3;
+     /********* notification_profil attribues**********/
+     private static final String TABLE_notification_profil = "notification_profil";
+     private static final String COL_ID_notification_profil = "id_notification";
+     private static final int NUM_COL_ID_notification_profil = 0;
+     private static final String COL_ID_visiteur_notification_profil = "id_visiteur";
+     private static final int NUM_ID_visiteur_notification_profil = 1;
+     private static final String COL_ID_Developpeur_notification_profil = "id_developpeur";
+     private static final int NUM_ID_Developpeur_notification_profil = 2;
+     private static final String COL_date_creation_notification_profil = "date_creation";
+     private static final int NUM_date_creation_notification_profil = 3;
 
     private SQLiteDatabase bdd;
 
@@ -390,7 +401,76 @@ public developpeur getDev(String mail, String password)
          curseur.close();
          return projets;
      }
+     public Projet[] getAllProjetsByVisiteur(String id_visiteur){
 
+         Projet[] projets=new Projet[50];
+
+//resultat[0]="f";
+         Integer i=0;
+         // Cursor c = bdd.query(TABLE_dev, new String[] {COL_ID,COL_NOM, COL_PRENOM,COL_DOMAINE_DEVELOPPEMENT,COL_ENVIRONNEMENT,COL_NIVEAU_ETUDE,COL_THECHNOLOGIES,COL_TELEPHONE,COL_MAIL,COL_GRADE,COL_DATE_CREATION}, COL_ID + " = 1", null, null, null, null);
+         Cursor curseur = bdd.rawQuery("select * from projet   where id_auteur = ?  " , new String[]{id_visiteur});
+
+         //String req="select * from projet where id_visiteur="+id_visiteur;
+        // Cursor curseur = bdd.rawQuery(req,null);
+         curseur.moveToFirst();
+         if(!curseur.isAfterLast())
+         {
+             do{
+                 Integer id=curseur.getInt(NUM_COL_ID_projet);
+                 String nom=curseur.getString(NUM_COL_NOM_projet);
+                 String detail=curseur.getString(NUM_COL_DETAIL);
+                 String recherche=curseur.getString(NUM_COL_RECHERCHE);
+                 String id_auteur=curseur.getString(NUM_ID_AUTEUR);
+                 String date_creation=curseur.getString(NUM_DATE_CREATION_projet);
+                 Projet projet = new Projet(nom, detail,recherche,id_auteur);
+                 projet.setDate_creation(date_creation);
+                 projet.setId_projet(id);
+                 // resultat[i]=developpeur.toString();
+                 projets[i]=projet;
+                 i++;
+                 // tweets.add(developpeur);
+             }while (curseur.moveToNext());
+
+
+         }
+
+
+         curseur.close();
+         return projets;
+     }
+     public List<Projet> getAllProjetsByVisiteur2(String id_visiteur){
+
+         List<Projet> projets = new ArrayList<Projet>();
+//resultat[0]="f";
+         Integer i=0;
+         //Cursor c = bdd.query(TABLE_dev, new String[] {COL_ID,COL_NOM, COL_DETAIL,COL_RECHERCHE,COL_ID_AUTEUR,COL_DATE_CREATION}, null, null, null, null, null);
+        // String req="select * from projet";
+         //Cursor curseur = bdd.rawQuery(req,null);
+         Cursor curseur = bdd.rawQuery("select * from projet   where id_auteur = ?  " , new String[]{id_visiteur});
+
+         curseur.moveToFirst();
+         if(!curseur.isAfterLast())
+         {
+             do{
+                 Integer id=curseur.getInt(NUM_COL_ID_projet);
+                 String nom=curseur.getString(NUM_COL_NOM_projet);
+                 String detail=curseur.getString(NUM_COL_DETAIL);
+                 String recherche=curseur.getString(NUM_COL_RECHERCHE);
+                 String id_auteur=curseur.getString(NUM_ID_AUTEUR);
+                 String date_creation=curseur.getString(NUM_DATE_CREATION_projet);
+                 Projet projet = new Projet(nom, detail,recherche,id_auteur);
+                 projet.setDate_creation(date_creation);
+                 projet.setId_projet(id);
+                 // resultat[i]=developpeur.toString();
+
+                 projets.add(projet);
+             }while (curseur.moveToNext());
+
+
+         }
+         curseur.close();
+         return projets;
+     }
      private Projet cursorToProjet(Cursor c){
          //si aucun élément n'a été retourné dans la requête, on renvoie null
          if (c.getCount() == 0)
@@ -508,6 +588,43 @@ public developpeur getDev(String mail, String password)
          notification.setId_projet(c.getString(NUM_ID_Projet_notification));
          notification.setId_developpeur(c.getString(NUM_ID_Developpeur_notification));
          notification.setDate_creation(c.getString(NUM_date_creation_notification));
+         //On ferme le cursor
+         c.close();
+
+         return notification;
+     }
+     /********Partie Notification Profil*******/
+     public long insertNotification_profil(NotificationProfil notification){
+         //Création d'un ContentValues (fonctionne comme une HashMap)
+         ContentValues values = new ContentValues();
+         //on lui ajoute une valeur associée à une clé (qui est le nom de la colonne dans laquelle on veut mettre la valeur)
+         values.put(COL_ID_visiteur_notification_profil, notification.getId_visiteur());
+         values.put(COL_ID_Developpeur_notification_profil, notification.getId_developpeur());
+
+         //on insère l'objet dans la BDD via le ContentValues
+         return bdd.insert(TABLE_notification_profil, null, values);
+     }
+     public NotificationProfil getNotification_profil(String id_developpeur, String id_visiteur)
+     {
+         //Cursor c= bdd.query(TABLE_dev, new String[] {COL_ID,COL_NOM, COL_PRENOM,COL_DOMAINE_DEVELOPPEMENT,COL_ENVIRONNEMENT,COL_NIVEAU_ETUDE,COL_THECHNOLOGIES,COL_TELEPHONE,COL_MAIL,COL_GRADE,COL_DATE_CREATION},  "mail=\""+mail+"\" and password=\""+password+"\"", null, null, null, null);
+         Cursor cursor = bdd.rawQuery("select * from notification_profil   where id_visiteur = ?  AND  id_developpeur = ? " , new String[]{id_visiteur, id_developpeur });
+
+         return cursorToNotificaton_profil(cursor);
+     }
+     private NotificationProfil cursorToNotificaton_profil(Cursor c){
+         //si aucun élément n'a été retourné dans la requête, on renvoie null
+         if (c.getCount() == 0)
+         { return null;}
+
+         //Sinon on se place sur le premier élément
+         c.moveToFirst();
+         //On créé un livre
+         NotificationProfil notification = new NotificationProfil();
+         //on lui affecte toutes les infos grâce aux infos contenues dans le Cursor
+         notification.setId_notification(c.getInt(NUM_COL_ID_notification_profil));
+         notification.setId_visiteur(c.getString(NUM_ID_visiteur_notification_profil));
+         notification.setId_developpeur(c.getString(NUM_ID_Developpeur_notification_profil));
+         notification.setDate_creation(c.getString(NUM_date_creation_notification_profil));
          //On ferme le cursor
          c.close();
 

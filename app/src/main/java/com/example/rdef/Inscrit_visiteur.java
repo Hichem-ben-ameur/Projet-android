@@ -83,8 +83,8 @@ public class Inscrit_visiteur extends AppCompatActivity {
                 }
                 if(mail.getText().toString()==""||mail.getText().toString().indexOf("@")<0||mail.getText().toString()==null||mail.getText().toString().length()==0)
                 {mail.setError("Champ invalide");return;}
-                if(password.getText().toString()==""||password.getText().toString()==null||password.getText().toString().length()==0)
-                {password.setError("Champ invalide");return;}
+                if(password.getText().toString()==""||password.getText().toString()==null||password.getText().toString().length()<6)
+                {password.setError("6 caractères minimum");return;}
                 if(tel.getText().toString()==""||tel.getText().toString()==null||tel.getText().toString().length()==0)
                 {tel.setError("Champ invalide");return;}
                 Visiteur visiteur=new Visiteur();
@@ -101,6 +101,8 @@ public class Inscrit_visiteur extends AppCompatActivity {
 
                 float o=developpeurBDD.insertVisiteur(visiteur);
                 developpeurBDD.close();
+                myintent.putExtra("id_visiteur",(int)o);
+
                 myintent.putExtra("nom",visiteur.getNom());
                 myintent.putExtra("prenom",visiteur.getPrenom());
                 myintent.putExtra("type",visiteur.getType());

@@ -136,6 +136,7 @@ nonInscrit.setOnClickListener(new View.OnClickListener() {
                    {loginViewModel.login(visiteur.getNom_entreprise(),"");}
                    else
                    {loginViewModel.login(visiteur.getNom(),visiteur.getPrenom());}
+                   intent.putExtra("id_visiteur",visiteur.getId_visiteur());
                    intent.putExtra("nom",visiteur.getNom());
                    intent.putExtra("prenom",visiteur.getPrenom());
                    intent.putExtra("nom_entreprise",visiteur.getNom_entreprise());

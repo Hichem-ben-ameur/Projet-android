@@ -138,6 +138,8 @@ nonInscrit.setOnClickListener(new View.OnClickListener() {
                    loadingProgressBar.setVisibility(View.VISIBLE);
                    loginViewModel.login(developpeur.getNom(),developpeur.getPrenom());
                    intent.putExtra("id_developpeur",developpeur.getId_developpeur());
+                   // Toast.makeText(LoginActivity.this, "id: "+developpeur.getId_developpeur(), Toast.LENGTH_LONG).show();
+
                    intent.putExtra("nom",developpeur.getNom());
                    intent.putExtra("prenom",developpeur.getPrenom());
                    intent.putExtra("domaine_developpement",developpeur.getDomaine_developpement());

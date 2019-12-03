@@ -41,13 +41,6 @@ public class Session_dev extends AppCompatActivity {
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-       // id_developpeur=getIntent().getStringExtra("id_developpeur");
-      //  Toast.makeText(Session_dev.this, "id dev "+getIntent().getExtras().getString("id_developpeur"), Toast.LENGTH_LONG).show();
-
-        //TextView text=(TextView)findViewById(R.id.nom_acceuil);
-        //TextView mail=findViewById(R.id.mail_acceuil);
-      // mail.setText("tttt");
-        //text.setText(getIntent().getStringExtra("nom")+" "+getIntent().getStringExtra("prenom"));
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -60,6 +53,7 @@ public class Session_dev extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         //onSupportNavigateUp();
+
          session=true;
     }
 
@@ -74,6 +68,8 @@ public class Session_dev extends AppCompatActivity {
                 Intent intent=new Intent(Session_dev.this,Choix.class);
                 startActivity(intent);
                 finishAffinity();
+             //   Toast.makeText(Session_dev.this, "id dev "+getIntent().getExtras().getString("id_developpeur"), Toast.LENGTH_LONG).show();
+
                 return false;
             }
         });

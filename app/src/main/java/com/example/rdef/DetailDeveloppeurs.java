@@ -3,6 +3,7 @@ package com.example.rdef;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.rdef.Entity.NotificationProfil;
 import com.example.rdef.controleur.DeveloppeurBDD;
 import com.example.rdef.Entity.developpeur;
 import com.example.rdef.ui.login.LoginActivity;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 public class DetailDeveloppeurs extends AppCompatActivity {
     private Button one, two, three;
+    NotificationProfil notificationProfil=new NotificationProfil();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,12 @@ public class DetailDeveloppeurs extends AppCompatActivity {
         String grade =getIntent().getStringExtra("grade");
         String niveau_etude =getIntent().getStringExtra("niveau_etude");
 
-
+      //  Toast.makeText(DetailDeveloppeurs.this, "id visiteur:"+getIntent().getExtras().getInt("id_visiteur"), Toast.LENGTH_LONG).show();
+        final DeveloppeurBDD developpeurBDD = new DeveloppeurBDD(this);
+        developpeurBDD.open();
+        NotificationProfil n=developpeurBDD.getNotification_profil(id,Integer.toString(getIntent().getExtras().getInt("id_visiteur")));
+        notificationProfil.setId_visiteur(Integer.toString(getIntent().getExtras().getInt("id_visiteur")));
+        notificationProfil.setId_developpeur(id);
         TextView pseudo = (TextView)findViewById(R.id.pseudo0);
         pseudo.setText(prenom+" "+nom+" (Developpeur "+grade+")");
         TextView text1 = (TextView)findViewById(R.id.text1);
@@ -46,7 +53,8 @@ public class DetailDeveloppeurs extends AppCompatActivity {
         TextView text4 = (TextView)findViewById(R.id.text4);
         text4.setText("Niveau d'étude: "+niveau_etude);
         //convertView.setText(nom);
-        FloatingActionButton fab = findViewById(R.id.fab);
+      final   FloatingActionButton fab = findViewById(R.id.fab);
+        fab.show();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,9 +68,19 @@ public class DetailDeveloppeurs extends AppCompatActivity {
     Toast.makeText(DetailDeveloppeurs.this, "Notification Envoyée", Toast.LENGTH_LONG).show();
                                         //Intent launchactivity= new Intent(DetailDeveloppeurs.this, LoginActivity.class);
                                       //  startActivity(launchactivity);
+                                        developpeurBDD.insertNotification_profil(notificationProfil);
+                                        developpeurBDD.open();
+                                        Toast.makeText(DetailDeveloppeurs.this, "Notification Envoyée", Toast.LENGTH_LONG).show();
+                                        fab.hide();
                                     }}).show();
             }
         });
+        if (n!=null){
+            fab.hide();
+
+            Toast.makeText(DetailDeveloppeurs.this, "Vous avez déjà contacter le développeur !", Toast.LENGTH_LONG).show();
+
+        }
 
 
     }

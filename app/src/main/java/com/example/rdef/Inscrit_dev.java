@@ -84,8 +84,8 @@ inscription.setOnClickListener(new View.OnClickListener() {
                 {domaine_dev.setError("Champ invalide");return;}
                 if(mail.getText().toString()==""||mail.getText().toString().indexOf("@")<0||mail.getText().toString()==null||mail.getText().toString().length()==0)
                 {mail.setError("Champ invalide");return;}
-                if(password.getText().toString()==""||password.getText().toString()==null||password.getText().toString().length()==0)
-                {password.setError("Champ invalide");return;}
+                if(password.getText().toString()==""||password.getText().toString()==null||password.getText().toString().length()<6)
+                {password.setError("6 caractères minimum");return;}
                 if(niveau_etude.getText().toString()==""||niveau_etude.getText().toString()==null||niveau_etude.getText().toString().length()==0)
                 {niveau_etude.setError("Champ invalide");return;}
 
@@ -103,10 +103,11 @@ inscription.setOnClickListener(new View.OnClickListener() {
         developpeurBDD.open();
         float o=developpeurBDD.insertDeveloppeur(developpeur);
 
-       developpeur d=developpeurBDD.getDev(developpeur.getMail(),developpeur.getPassword());
-               Toast.makeText(Inscrit_dev.this,"id_developpeur"+ d.getId_developpeur(), Toast.LENGTH_LONG).show();
+      // developpeur d=developpeurBDD.getDev(developpeur.getMail(),developpeur.getPassword());
+              // Toast.makeText(Inscrit_dev.this,"id_developpeur"+ d.getId_developpeur(), Toast.LENGTH_LONG).show();
 
-                myintent.putExtra("id_developpeur",d.getId_developpeur());
+               // myintent.putExtra("id_developpeur",d.getId_developpeur());
+                myintent.putExtra("id_developpeur",(int)o);
                 myintent.putExtra("nom",developpeur.getNom());
         myintent.putExtra("prenom",developpeur.getPrenom());
         myintent.putExtra("domaine_developpement",developpeur.getDomaine_developpement());

@@ -22,6 +22,12 @@
 
         </activity>
         <activity
+            android:name=".DetailProjet"
+            android:label="@string/title_activity_detailsprojet"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
+        <activity
             android:name=".Projets"
             android:label="@string/title_activity_projets"
             android:theme="@style/AppTheme.NoActionBar">

@@ -3,12 +3,8 @@ package com.example.rdef;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.rdef.Entity.Livre;
 import com.example.rdef.Entity.developpeur;
 import com.example.rdef.controleur.DeveloppeurBDD;
-import com.example.rdef.controleur.LivresBDD;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;

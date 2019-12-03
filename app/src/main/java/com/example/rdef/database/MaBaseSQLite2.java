@@ -10,7 +10,8 @@ public class MaBaseSQLite2 extends SQLiteOpenHelper {
     private static final String TABLE_dev = "developpeur";
     private static final String TABLE_projet = "projet";
     private static final String TABLE_visiteur = "visiteur";
-    private static final String TABLE_notification = "notification";
+    private static final String TABLE_notification = "notification_projet";
+    private static final String TABLE_notification_profil = "notification_profil";
 
     private static final String creation="create table developpeur("
             + "id_developpeur INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -48,6 +49,11 @@ public class MaBaseSQLite2 extends SQLiteOpenHelper {
             + "id_projet TEXT  NOT NULL,"
             + "id_developpeur TEXT  NOT NULL,"
             + "date_creation DATETIME DEFAULT CURRENT_TIMESTAMP)";
+    private static final String creation5="create table notification_profil("
+            + "id_notification INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + "id_visiteur TEXT  NOT NULL,"
+            + "id_developpeur TEXT  NOT NULL,"
+            + "date_creation DATETIME DEFAULT CURRENT_TIMESTAMP)";
 
     public MaBaseSQLite2(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -60,6 +66,7 @@ public class MaBaseSQLite2 extends SQLiteOpenHelper {
         db.execSQL(creation2);
         db.execSQL(creation3);
         db.execSQL(creation4);
+        db.execSQL(creation5);
 
 
     }
@@ -72,6 +79,7 @@ public class MaBaseSQLite2 extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE " + TABLE_projet + ";");
         db.execSQL("DROP TABLE " + TABLE_visiteur + ";");
         db.execSQL("DROP TABLE " + TABLE_notification + ";");
+        db.execSQL("DROP TABLE " + TABLE_notification_profil + ";");
 
 
         onCreate(db);

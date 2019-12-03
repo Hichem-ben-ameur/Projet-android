@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
             DeveloppeurBDD developpeurBDD= new DeveloppeurBDD(getContext());
 
             developpeurBDD.open();
-            final developpeur developpeur= new developpeur("Antoine","Antoine","Mobile","bac +3","Java, Kotlin","Android Studio","antoine@gmail.com","123456","0123456789","junior");
+          /*  final developpeur developpeur= new developpeur("Antoine","Antoine","Mobile","bac +3","Java, Kotlin","Android Studio","antoine@gmail.com","123456","0123456789","junior");
             developpeur developpeur2= new developpeur("Benameur","hichem","Web","bac +4","php, NodeJs, Javascript","VisuelCode","hichembenameur2003@gmail.com","000012","0751526593","junior");
             developpeur developpeur3= new developpeur("Gerard","Gerard","Mobile","bac +5","Java, IOS","Android Studio","Gerard@gmail.com","123456","0123456789","junior");
             developpeur developpeur4= new developpeur("Sophie","Sophie","Web","bac +2","HTML, php","VisuelCode","Sophie@gmail.com","123456","0123456789","junior");
@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment {
             developpeurBDD.insertDeveloppeur(developpeur);
             developpeurBDD.insertDeveloppeur(developpeur2);
             developpeurBDD.insertDeveloppeur(developpeur3);
-            developpeurBDD.insertDeveloppeur(developpeur4);
+            developpeurBDD.insertDeveloppeur(developpeur4);*/
             //final String[] alldevs=developpeurBDD.getAllIDS();
             final  developpeur[] alldevs=developpeurBDD.getAllDeveloppeurs2();
             //Toast.makeText(this, "non "+tdt, Toast.LENGTH_LONG).show();
@@ -89,6 +89,8 @@ public class HomeFragment extends Fragment {
 
                     Intent myintenet = new Intent(getContext(), DetailDeveloppeurs.class);
                     developpeur developpeur1 =alldevs[position];
+                    myintenet.putExtra("id_visiteur",getActivity().getIntent().getExtras().getInt("id_visiteur"));
+
                     myintenet.putExtra("id",developpeur1.getId_developpeur()+"");
                     myintenet.putExtra("nom",developpeur1.getNom());
                     myintenet.putExtra("prenom",developpeur1.getPrenom());
@@ -106,9 +108,9 @@ public class HomeFragment extends Fragment {
         else if(myDataFromActivity_dev)
         {
             DeveloppeurBDD developpeurBDD = new DeveloppeurBDD(getContext());
+            developpeurBDD.open();
 
-
-            final Projet projet= new Projet("Portail Inscription","Vous","Développeur Web qui maitrise PHP et Javascript ","1");
+         /*   final Projet projet= new Projet("Portail Inscription","Vous","Développeur Web qui maitrise PHP et Javascript ","1");
             final Projet projet2= new Projet("Gestion de Stocks","Vous devez, dans un premier temps, candidater selon les procédures et calendriers présentés sur ce site. Les candidatures formulées en dehors de ce cadre ne sont pas recevables.","Développeur C#/.net/JAVA  ","1");
             final Projet projet3= new Projet("Application mobile de vente","Vous devez, dans un premier temps, candidater selon les procédures et calendriers présentés sur ce site. Les candidatures formulées en dehors de ce cadre ne sont pas recevables.","Développeur mobile qui maitrise java/android studio","1");
             final Projet projet4= new Projet("Maintenance de notre site Web","Vous devez, dans un premier temps, candidater selon les procédures et calendriers présentés sur ce site. Les candidatures formulées en dehors de ce cadre ne sont pas recevables.","Développeur Web qui maitrise HTML et NodeJs ","1");
@@ -117,7 +119,7 @@ public class HomeFragment extends Fragment {
             long tdt=developpeurBDD.insertProjet(projet);
             developpeurBDD.insertProjet(projet2);
             developpeurBDD.insertProjet(projet3);
-            developpeurBDD.insertProjet(projet4);
+            developpeurBDD.insertProjet(projet4);*/
 
             final  Projet[] allprojets=developpeurBDD.getAllProjets2();
 
@@ -132,8 +134,11 @@ public class HomeFragment extends Fragment {
 
                     Intent myintenet = new Intent(getContext(), Detailsprojet.class);
                     Projet projte1 =allprojets[position];
-                    Session_dev session_dev = (Session_dev) getActivity();
-                    myintenet.putExtra("id_developpeur",session_dev.id_developpeur);
+
+                    //Toast.makeText(getContext(), "id dev "+getI, Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getContext(), "prenom "+getActivity().getIntent().getExtras().getInt("id_developpeur"), Toast.LENGTH_LONG).show();
+
+                    myintenet.putExtra("id_developpeur",getActivity().getIntent().getExtras().getInt("id_developpeur"));
                     myintenet.putExtra("id_projet",projte1.getId_projet()+"");
                     myintenet.putExtra("nom_projet",projte1.getNom_projet());
                     myintenet.putExtra("detail",projte1.getDetail());
